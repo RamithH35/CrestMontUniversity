@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "design-motion-principles": {
+      "source": "kylezantos/design-motion-principles",
+      "sourceType": "github",
+      "skillPath": "skills/design-motion-principles/SKILL.md",
+      "computedHash": "ca263e4515ddd34e412c841a2b35c2898a2a2122744836fdd003f0a2552192d6"
+    },
+    "design-review": {
+      "source": "jezweb/claude-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/frontend/skills/design-review/SKILL.md",
+      "computedHash": "401194389fa8c31fe777420487cf529336e14cd2e76c436233d67e9cb6244d69"
+    },
+    "shadcn-ui": {
+      "source": "jezweb/claude-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/frontend/skills/shadcn-ui/SKILL.md",
+      "computedHash": "f86d41cbe62c1224b77b673413a0141930a7d5d7054ea60a8192e354198cd71e"
+    },
+    "tailwind-4-docs": {
+      "source": "lombiq/tailwind-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/tailwind-4-docs/SKILL.md",
+      "computedHash": "4900f575f24641b1af459cda37cbb8438ecf3f8f1a63148384197cb730895093"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    }
+  }
+}

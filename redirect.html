@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Institute of Technology — Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAF7F2;
+    --ink: #1A1A1A;
+    --ink-soft: #59564F;
+    --blue: #3558A2;
+    --blue-deep: #223a72;
+    --clay: #C8785A;
+    --line: #E4DFD4;
+    --card: #FFFFFF;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.05;
+  }
+  .mono{
+    font-family:'Space Mono',monospace;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  img{display:block;width:100%;height:100%;object-fit:cover;}
+
+  /* duotone photo treatment */
+  .duo{
+    position:relative;
+    overflow:hidden;
+    background:var(--blue-deep);
+  }
+  .duo img{
+    filter: grayscale(1) contrast(1.15) brightness(1.05);
+    mix-blend-mode: luminosity;
+    transition: filter .5s var(--ease), transform .6s var(--ease);
+  }
+  .duo::after{
+    content:'';
+    position:absolute;inset:0;
+    background:var(--blue);
+    mix-blend-mode:color;
+    opacity:.75;
+    transition:opacity .5s var(--ease);
+  }
+  .duo.reveal-hover:hover img{transform:scale(1.04);}
+  .duo.reveal-hover:hover::after{opacity:.15;}
+
+  /* eyebrow badge */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;
+    border:1px solid var(--line);
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--card);
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex:none;}
+  .dot.past{background:#B6B0A2;}
+
+  /* buttons */
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:999px;
+    font-size:14px;font-weight:500;
+    border:1px solid var(--ink);
+    transition:transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+  }
+  .btn-solid{background:var(--ink);color:var(--bg);}
+  .btn-solid:hover{transform:translateY(-2px);background:var(--blue-deep);border-color:var(--blue-deep);}
+  .btn-outline{background:transparent;color:var(--ink);}
+  .btn-outline:hover{transform:translateY(-2px);background:var(--ink);color:var(--bg);}
+
+  /* nav */
+  .side-nav{
+    position:fixed;top:0;right:0;height:100vh;width:56px;
+    background:var(--blue);color:#fff;
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:space-between;padding:24px 0;
+    z-index:50;
+  }
+  .side-nav span{
+    writing-mode:vertical-rl;
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;
+  }
+  .top-nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(250,247,242,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-nav .wrap{
+    padding-right:80px;
+    display:flex;align-items:center;justify-content:space-between;height:72px;
+  }
+  .logo{font-family:'Space Grotesk';font-weight:700;font-size:18px;}
+  .logo small{display:block;font-family:'Space Mono';font-weight:400;font-size:10px;letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase;}
+  .nav-links{display:flex;gap:28px;font-size:14px;}
+  .nav-links a{color:var(--ink-soft);transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+
+  /* hero */
+  .hero{position:relative;padding-right:56px;}
+  .hero-media{height:78vh;min-height:520px;}
+  .hero-card{
+    position:absolute;top:14%;left:32px;
+    max-width:520px;background:var(--card);
+    padding:44px 40px;border-radius:4px;
+    box-shadow:0 24px 60px rgba(0,0,0,.12);
+  }
+  .hero-card h1{font-size:clamp(34px,4.4vw,52px);margin:14px 0 12px;}
+  .hero-card p{color:var(--ink-soft);margin-bottom:28px;font-size:15px;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+  /* section */
+  section{padding:100px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:18px;}
+  .section-head h2{font-size:clamp(28px,3.2vw,42px);}
+  .section-head p{color:var(--ink-soft);margin-top:14px;font-size:15px;}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .about-copy p{color:var(--ink-soft);margin-top:16px;line-height:1.7;font-size:15px;}
+  .about-media{aspect-ratio:4/5;border-radius:4px;}
+
+  /* numbered list */
+  .num-row{
+    display:grid;grid-template-columns:56px 1fr 220px;gap:28px;
+    align-items:center;padding:32px 0;border-top:1px solid var(--line);
+  }
+  .num-row:last-child{border-bottom:1px solid var(--line);}
+  .num-row .num{font-family:'Space Mono';color:var(--ink-soft);font-size:14px;}
+  .num-row h3{font-size:22px;margin-bottom:8px;}
+  .num-row p{color:var(--ink-soft);font-size:14px;max-width:460px;}
+  .tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .tag{
+    font-family:'Space Mono';font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+    padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink-soft);
+  }
+  .num-thumb{aspect-ratio:1;border-radius:4px;}
+
+  /* marquee */
+  .marquee-band{
+    background:var(--ink);color:var(--bg);
+    padding:26px 0;overflow:hidden;white-space:nowrap;
+  }
+  .marquee-track{display:inline-block;animation:scroll 22s linear infinite;}
+  .marquee-track span{
+    font-family:'Space Grotesk';font-weight:700;font-size:22px;
+    margin-right:36px;
+  }
+  .marquee-track span.sep{color:var(--clay);}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* events grid */
+  .filter-bar{display:flex;gap:12px;align-items:center;margin-bottom:40px;flex-wrap:wrap;}
+  .chip{
+    font-family:'Space Mono';font-size:12px;padding:9px 16px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);display:flex;align-items:center;gap:6px;
+  }
+  .legend{display:flex;gap:18px;margin-left:auto;font-family:'Space Mono';font-size:11px;color:var(--ink-soft);}
+  .legend-item{display:flex;align-items:center;gap:6px;}
+
+  .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .event-card{background:var(--card);border-radius:4px;overflow:hidden;border:1px solid var(--line);}
+  .event-media{aspect-ratio:4/5;}
+  .event-body{padding:20px;}
+  .event-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+  .event-card h3{font-size:18px;margin-bottom:6px;}
+  .event-date{font-family:'Space Mono';font-size:12px;color:var(--ink-soft);}
+  .status{display:flex;align-items:center;gap:6px;font-family:'Space Mono';font-size:10px;color:var(--ink-soft);}
+
+  /* highlights */
+  .highlights{display:flex;gap:24px;overflow-x:auto;padding-bottom:8px;}
+  .highlight-card{
+    min-width:340px;background:var(--card);border:1px solid var(--line);
+    border-radius:4px;padding:32px;flex:none;
+  }
+  .highlight-card.clay{background:var(--clay);color:#fff;border-color:var(--clay);}
+  .highlight-card.blue{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .highlight-card p.quote{font-size:17px;line-height:1.55;margin-bottom:24px;}
+  .highlight-name{font-weight:500;font-size:14px;}
+  .highlight-role{font-family:'Space Mono';font-size:11px;opacity:.7;}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;}
+  .stat-num{font-family:'Space Grotesk';font-weight:700;font-size:clamp(36px,5vw,56px);color:var(--blue);}
+  .stat-label{font-family:'Space Mono';font-size:12px;color:var(--ink-soft);margin-top:8px;}
+
+  footer{background:var(--ink);color:var(--bg);padding:64px 0 32px;margin-right:56px;}
+  .foot-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:24px;}
+  .foot-top h2{font-size:clamp(28px,4vw,44px);max-width:520px;}
+  footer .btn-outline{border-color:var(--bg);color:var(--bg);}
+  footer .btn-outline:hover{background:var(--bg);color:var(--ink);}
+  .foot-bottom{display:flex;justify-content:space-between;border-top:1px solid #333;padding-top:24px;font-family:'Space Mono';font-size:11px;color:#999;flex-wrap:wrap;gap:12px;}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:880px){
+    .side-nav{display:none;}
+    .hero{padding-right:0;}
+    .hero-card{position:static;margin:24px;padding:28px 24px;}
+    .hero-media{height:52vh;}
+    .top-nav .wrap{padding-right:24px;}
+    .nav-links{display:none;}
+    .about{grid-template-columns:1fr;}
+    .num-row{grid-template-columns:1fr;gap:14px;}
+    .num-thumb{width:100px;}
+    .events-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr;gap:28px;}
+    footer{margin-right:0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;transition-duration:0.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="side-nav">
+  <span>MENU</span>
+  <span>EN · SEARCH</span>
+</div>
+
+<nav class="top-nav">
+  <div class="wrap">
+    <div class="logo">AIT<small>Aurora Institute of Technology</small></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#departments">Departments</a>
+      <a href="#events">Events</a>
+      <a href="#voices">Voices</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-media duo">
+    <img src="https://source.unsplash.com/1600x1000/?university,campus,architecture" alt="">
+  </div>
+  <div class="hero-card reveal">
+    <span class="eyebrow"><span class="dot"></span>Innovating Tomorrow</span>
+    <h1>Aurora Institute<br>of Technology</h1>
+    <p>Where research, making, and community meet. Every lab, launch, and late-night build starts here.</p>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href="#events">Explore Events</a>
+      <a class="btn btn-outline" href="#departments">College Layout</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="padding-right:56px;">
+  <div class="wrap about">
+    <div class="about-media duo reveal">
+      <img src="https://source.unsplash.com/900x1100/?students,meeting,workshop" alt="">
+    </div>
+    <div class="about-copy reveal">
+      <span class="eyebrow"><span class="dot"></span>Why We Exist</span>
+      <h2 style="margin-top:18px;">A campus built around what students actually make</h2>
+      <p>Aurora runs on labs, clubs, and cross-department projects — not just lecture halls. This is the single place to find what's happening, who's running it, and how to get in.</p>
+      <div class="hero-actions" style="margin-top:24px;">
+        <a class="btn btn-solid" href="#events">See What's On</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="departments" style="padding-right:56px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Explore Areas</span>
+      <h2>Three ways to get involved</h2>
+      <p>Every event on this site sits under one of these — pick a lane, or move between all three.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="num-row">
+        <span class="num">01</span>
+        <div>
+          <h3>Technology &amp; Engineering</h3>
+          <p>Hackathons, robotics builds, and open lab hours across AI, embedded systems, and software.</p>
+          <div class="tags"><span class="tag">Hackathons</span><span class="tag">Robotics</span><span class="tag">+6 more</span></div>
+        </div>
+        <div class="num-thumb duo"><img src="https://source.unsplash.com/300x300/?robotics,lab" alt=""></div>
+      </div>
+      <div class="num-row">
+        <span class="num">02</span>
+        <div>
+          <h3>Business &amp; Leadership</h3>
+          <p>Founder talks, case competitions, and the campus incubator's demo nights.</p>
+          <div class="tags"><span class="tag">Founder Talks</span><span class="tag">Case Comps</span><span class="tag">+4 more</span></div>
+        </div>
+        <div class="num-thumb duo"><img src="https://source.unsplash.com/300x300/?business,meeting" alt=""></div>
+      </div>
+      <div class="num-row">
+        <span class="num">03</span>
+        <div>
+          <h3>Arts, Culture &amp; Community</h3>
+          <p>Showcases, cultural nights, and the clubs fair that kicks off every semester.</p>
+          <div class="tags"><span class="tag">Showcases</span><span class="tag">Cultural Nights</span><span class="tag">+8 more</span></div>
+        </div>
+        <div class="num-thumb duo"><img src="https://source.unsplash.com/300x300/?art,exhibition" alt=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>CAMPUS OVER CLASSROOM</span><span class="sep">•</span>
+    <span>BUILD OVER WATCH</span><span class="sep">•</span>
+    <span>SHOW UP OVER SIGN UP</span><span class="sep">•</span>
+    <span>CAMPUS OVER CLASSROOM</span><span class="sep">•</span>
+    <span>BUILD OVER WATCH</span><span class="sep">•</span>
+    <span>SHOW UP OVER SIGN UP</span><span class="sep">•</span>
+  </div>
+</div>
+
+<section id="events" style="padding-right:56px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Agenda</span>
+      <h2>What's on at Aurora</h2>
+    </div>
+
+    <div class="filter-bar reveal">
+      <span class="chip">Category ▾</span>
+      <span class="chip">This Month ▾</span>
+      <span class="legend">
+        <span class="legend-item"><span class="dot"></span>Upcoming</span>
+        <span class="legend-item"><span class="dot past"></span>Past</span>
+      </span>
+    </div>
+
+    <div class="events-grid reveal">
+      <div class="event-card">
+        <div class="event-media duo reveal-hover"><img src="https://source.unsplash.com/500x600/?hackathon,coding" alt=""></div>
+        <div class="event-body">
+          <div class="event-top">
+            <span class="tag">Technology</span>
+            <span class="status"><span class="dot"></span>Upcoming</span>
+          </div>
+          <h3>Hackathon 48</h3>
+          <span class="event-date mono">18 — 20 SEP 2026</span>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-media duo reveal-hover"><img src="https://source.unsplash.com/500x600/?startup,talk" alt=""></div>
+        <div class="event-body">
+          <div class="event-top">
+            <span class="tag">Business</span>
+            <span class="status"><span class="dot"></span>Upcoming</span>
+          </div>
+          <h3>Founders Talk</h3>
+          <span class="event-date mono">02 OCT 2026</span>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-media duo reveal-hover"><img src="https://source.unsplash.com/500x600/?art,gallery,students" alt=""></div>
+        <div class="event-body">
+          <div class="event-top">
+            <span class="tag">Culture</span>
+            <span class="status"><span class="dot past"></span>Past</span>
+          </div>
+          <h3>Spring Showcase</h3>
+          <span class="event-date mono">14 MAR 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voices" style="padding-right:56px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Voices</span>
+      <h2>What students say</h2>
+    </div>
+    <div class="highlights reveal">
+      <div class="highlight-card">
+        <p class="quote">"Hackathon 48 is the reason I switched majors. Three days, one idea, way too much coffee."</p>
+        <div class="highlight-name">Priya Nair</div>
+        <div class="highlight-role">3rd Year, Computer Science</div>
+      </div>
+      <div class="highlight-card clay">
+        <p class="quote">"The founders' circle turned my side project into an actual pitch deck."</p>
+        <div class="highlight-name">Aravind Menon</div>
+        <div class="highlight-role">Final Year, Business</div>
+      </div>
+      <div class="highlight-card blue">
+        <p class="quote">"Spring Showcase is where half the campus finds out what the other half has been building."</p>
+        <div class="highlight-name">Sana Iqbal</div>
+        <div class="highlight-role">2nd Year, Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-right:56px;">
+  <div class="wrap stats reveal">
+    <div><div class="stat-num">97%</div><div class="stat-label">PLACEMENT RATE</div></div>
+    <div><div class="stat-num">120+</div><div class="stat-label">ACTIVE LABS</div></div>
+    <div><div class="stat-num">40+</div><div class="stat-label">CLUBS ON CAMPUS</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <h2>Ready to see what<br>Aurora's building?</h2>
+      <a class="btn btn-outline" href="#events">Browse the Agenda</a>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Aurora Institute of Technology</span>
+      <span>Innovating Tomorrow</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
