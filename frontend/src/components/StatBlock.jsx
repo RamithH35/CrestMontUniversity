@@ -10,7 +10,7 @@ function StatBlock() {
   ];
 
   return (
-    <section className="md:pr-[56px] py-[100px] transition-all duration-300">
+    <section className="py-[100px] transition-all duration-300">
       <motion.div 
         variants={staggerContainer}
         initial="hidden"

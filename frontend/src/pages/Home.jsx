@@ -156,21 +156,26 @@ function Home() {
       <About />
 
       {/* 3. Departments Row Section */}
-      <section id="departments" className="md:pr-[56px] py-[100px] transition-all duration-300">
+      <section id="departments" className="py-[100px] transition-all duration-300">
         <div className="wrap">
           <motion.div 
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
-            className="section-head max-w-[640px] mb-14"
+            className="section-head max-w-[640px] mb-14 relative"
           >
+            {/* Large Ghost Numeral Accent */}
+            <div className="absolute -top-12 -left-6 font-display font-bold text-[140px] text-[var(--ink)] opacity-[0.03] select-none pointer-events-none leading-none">
+              3
+            </div>
+            
             <EyebrowBadge text="Explore Areas" />
             <h2 className="text-[clamp(28px,3.2vw,42px)] mt-[18px] leading-[1.05] tracking-[-0.02em] font-display font-bold text-[var(--ink)]">
-              Three ways to get involved
+              Academic Departments
             </h2>
             <p className="text-[var(--ink-soft)] mt-[14px] text-[15px] leading-relaxed">
-              Every event on this site sits under one of these — pick a lane, or move between all three.
+              Crestmont's academic units structure our labs, workshops, and core student-led collaborations.
             </p>
           </motion.div>
 
@@ -255,7 +260,7 @@ function Home() {
       <MarqueeBand />
 
       {/* 5. Events Section */}
-      <section id="events" className="md:pr-[56px] py-[100px] transition-all duration-300">
+      <section id="events" className="py-[100px] transition-all duration-300">
         <div className="wrap">
           <motion.div 
             variants={fadeUp}
@@ -317,7 +322,7 @@ function Home() {
       </section>
 
       {/* 5.5 Clubs Section */}
-      <section id="clubs" className="md:pr-[56px] py-[100px] transition-all duration-300 border-t border-[var(--line)]">
+      <section id="clubs" className="py-[100px] transition-all duration-300 border-t border-[var(--line)]">
         <div className="wrap">
           <motion.div 
             variants={fadeUp}
@@ -377,10 +382,10 @@ function Home() {
               <motion.div
                 key={club.name}
                 variants={staggerItem}
-                className="event-card flex flex-col bg-[var(--card)] rounded-[4px] overflow-hidden border border-[var(--line)]"
+                className="event-card flex flex-col glass-card rounded-[4px] overflow-hidden"
               >
                 <Link to={`/clubs/${encodeURIComponent(club.name)}`}>
-                  <div className="event-media aspect-[4/5] overflow-hidden duo reveal-hover">
+                  <div className="event-media aspect-[4/5] overflow-hidden reveal-hover">
                     <DuoImage
                       src={club.img}
                       alt={club.name}
@@ -417,7 +422,7 @@ function Home() {
       </section>
 
       {/* 6. Testimonials Section (Voices) */}
-      <section id="voices" className="md:pr-[56px] py-[100px] transition-all duration-300">
+      <section id="voices" className="py-[100px] transition-all duration-300">
         <div className="wrap">
           <motion.div 
             variants={fadeUp}
@@ -432,32 +437,50 @@ function Home() {
             </h2>
           </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            className="highlights flex gap-6 overflow-x-auto pb-4"
-          >
-            <HighlightCard 
-              quote="&quot;Hackathon 48 is the reason I switched majors. Three days, one idea, way too much coffee.&quot;" 
-              name="Priya Nair" 
-              role="3rd Year, Computer Science" 
-              variant="default"
-            />
-            <HighlightCard 
-              quote="&quot;The founders' circle turned my side project into an actual pitch deck.&quot;" 
-              name="Aravind Menon" 
-              role="Final Year, Business" 
-              variant="clay"
-            />
-            <HighlightCard 
-              quote="&quot;Spring Showcase is where half the campus finds out what the other half has been building.&quot;" 
-              name="Sana Iqbal" 
-              role="2nd Year, Design" 
-              variant="blue"
-            />
-          </motion.div>
+          <div className="marquee-container">
+            <div className="marquee-content">
+              {[0, 1].map((setIndex) => (
+                <React.Fragment key={setIndex}>
+                  <HighlightCard 
+                    quote="&quot;Hackathon 48 is the reason I switched majors. Three days, one idea, way too much coffee.&quot;" 
+                    name="Priya Nair" 
+                    role="3rd Year, Computer Science" 
+                    variant="default"
+                  />
+                  <HighlightCard 
+                    quote="&quot;The founders' circle turned my side project into an actual pitch deck.&quot;" 
+                    name="Aravind Menon" 
+                    role="Final Year, Business" 
+                    variant="clay"
+                  />
+                  <HighlightCard 
+                    quote="&quot;Spring Showcase is where half the campus finds out what the other half has been building.&quot;" 
+                    name="Sana Iqbal" 
+                    role="2nd Year, Design" 
+                    variant="blue"
+                  />
+                  <HighlightCard 
+                    quote="&quot;Having 24/7 access to the fabrication lab changed everything. I built my entire drone prototype right here.&quot;" 
+                    name="Vikram Mehta" 
+                    role="3rd Year, Robotics" 
+                    variant="default"
+                  />
+                  <HighlightCard 
+                    quote="&quot;The collaboration between arts and CS is insane. We built an interactive VR gallery that got featured off-campus.&quot;" 
+                    name="Elena Rostova" 
+                    role="2nd Year, Fine Arts" 
+                    variant="clay"
+                  />
+                  <HighlightCard 
+                    quote="&quot;From my first freshman mixer to organizing Tech-Fest, Crestmont events are where you find your true crowd.&quot;" 
+                    name="Marcus Vance" 
+                    role="Final Year, Electrical Eng." 
+                    variant="blue"
+                  />
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

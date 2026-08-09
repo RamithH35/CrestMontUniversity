@@ -39,7 +39,7 @@ function DepartmentFaculty() {
         subtitle={`Meet the faculty team of ${department.name}.`}
       />
 
-      <section className="md:pr-[56px] py-[100px]">
+      <section className="py-[100px]">
         <div className="wrap">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
             <div>

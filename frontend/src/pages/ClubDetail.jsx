@@ -67,7 +67,7 @@ function ClubDetail() {
         subtitle={club ? club.description : clubInfo.desc}
       />
 
-      <section className="md:pr-[56px] py-[100px]">
+      <section className="py-[100px]">
         <div className="wrap">
           <motion.div
             variants={staggerContainer}

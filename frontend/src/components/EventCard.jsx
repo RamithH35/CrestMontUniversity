@@ -85,7 +85,7 @@ function EventCard({ event }) {
   return (
     <motion.div
       variants={staggerItem}
-      className="event-card flex flex-col bg-[var(--card)] rounded-[4px] overflow-hidden border border-[var(--line)]"
+      className="event-card flex flex-col glass-card rounded-[4px] overflow-hidden"
     >
       <motion.div 
         className="event-media aspect-[4/5] overflow-hidden"

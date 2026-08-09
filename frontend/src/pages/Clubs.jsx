@@ -41,7 +41,7 @@ function Clubs() {
         subtitle="Discover student-led communities, find your interest, and build projects together."
       />
 
-      <section className="md:pr-[56px] py-[100px]">
+      <section className="py-[100px]">
         <div className="wrap">
           <motion.div
             variants={staggerContainer}
@@ -59,10 +59,10 @@ function Clubs() {
                 <motion.div
                   key={clubName}
                   variants={staggerItem}
-                  className="event-card flex flex-col bg-[var(--card)] rounded-[4px] overflow-hidden border border-[var(--line)]"
+                  className="event-card flex flex-col glass-card rounded-[4px] overflow-hidden"
                 >
                   <Link to={`/clubs/${encodeURIComponent(clubName)}`}>
-                    <div className="event-media aspect-[4/5] overflow-hidden duo reveal-hover">
+                    <div className="event-media aspect-[4/5] overflow-hidden reveal-hover">
                       <DuoImage
                         src={info.img}
                         alt={clubName}

@@ -8,7 +8,7 @@ import cover2 from '../assets/cover-2.png'; // Import real about section photo
 
 function About() {
   return (
-    <section id="about" className="md:pr-[56px] py-[100px] transition-all duration-300">
+    <section id="about" className="py-[100px] transition-all duration-300">
       <div className="wrap grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-8">
         
         {/* About Photo with reveal-on-scroll */}

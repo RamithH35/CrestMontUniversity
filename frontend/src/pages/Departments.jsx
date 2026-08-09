@@ -58,7 +58,7 @@ function Departments() {
         subtitle="Explore our academic units dedicated to rigor, creation, and campus impact."
       />
 
-      <section className="md:pr-[56px] py-[100px]">
+      <section className="py-[100px]">
         <div className="wrap">
           <motion.div
             variants={staggerContainer}
@@ -70,10 +70,10 @@ function Departments() {
               <motion.div
                 key={dept._id}
                 variants={staggerItem}
-                className="event-card flex flex-col bg-[var(--card)] rounded-[4px] overflow-hidden border border-[var(--line)]"
+                className="event-card flex flex-col glass-card rounded-[4px] overflow-hidden"
               >
                 <Link to={`/departments/${dept._id}`}>
-                  <div className="event-media aspect-[4/5] overflow-hidden duo reveal-hover">
+                  <div className="event-media aspect-[4/5] overflow-hidden reveal-hover">
                     <DuoImage
                       src={getDeptImage(dept.name)}
                       alt={dept.name}

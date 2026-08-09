@@ -3,7 +3,7 @@ import PillButton from './PillButton';
 
 function Footer() {
   return (
-    <footer className="bg-[var(--ink)] text-[var(--bg)] py-16 md:mr-[56px] transition-all duration-300">
+    <footer className="bg-[var(--ink)] text-[var(--bg)] py-16 transition-all duration-300">
       <div className="wrap">
         {/* Footer Top Call-to-action */}
         <div className="foot-top flex justify-between items-end mb-12 flex-wrap gap-6">

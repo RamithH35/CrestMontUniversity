@@ -88,7 +88,7 @@ function DepartmentDetail() {
 
   if (error || !department) {
     return (
-      <div className="md:pr-[56px] py-[100px]">
+      <div className="py-[100px]">
         <div className="wrap">
           <div className="bg-[var(--card)] border border-[var(--line)] p-8 rounded-[4px]">
             <p className="text-lg font-semibold text-[var(--ink)]">Department not found</p>
@@ -111,7 +111,7 @@ function DepartmentDetail() {
         subtitle={department.description}
       />
 
-      <section className="md:pr-[56px] py-[100px]">
+      <section className="py-[100px]">
         <div className="wrap">
           <motion.div
             variants={staggerContainer}

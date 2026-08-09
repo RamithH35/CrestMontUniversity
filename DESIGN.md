@@ -24,9 +24,16 @@ Rule: one dominant accent (blue), one supporting accent used only on tags/cards,
 
 This pairing (bold display sans + mono for meta text) is the single most distinctive, easy-to-execute signature from Villa Kujoyama — carry it everywhere.
 
-## 3. Signature visual device: duotone photography
+## 3. Signature visual device: full-color photography + glassmorphism
 
-Every photo (except maybe hero) gets a single-color duotone tint using `accent-primary`. Cheap to implement (CSS `filter` or `mix-blend-mode`), and it's what makes the whole site read as art-directed rather than stock-photo-assembled.
+**Revised from the original duotone-everywhere approach** — after seeing the hero in full color with a gradient overlay and a glass card, that reads as more premium and less monotone than uniform duotone across the whole site. This is now the site-wide standard, not just the hero.
+
+- **All photography** (hero, department/club/event cards) renders in **full color** — no duotone filter.
+- Photos get a **soft gradient overlay** where they meet text/content — e.g. `linear-gradient(180deg, transparent, var(--bg))` at the bottom edge, or a subtle scrim behind any overlaid text — so images blend into the page rather than sitting as a hard-edged block.
+- **Content cards use glassmorphism**: semi-transparent background (~65% opacity), `backdrop-filter: blur(16px)`, thin light border (~40% opacity white/border color). This applies to the hero headline card AND to poster cards (department/club/event cards) where they overlay a photo.
+- Always verify text contrast against the photo behind any glass card — add a subtle dark scrim behind just the text area if needed, without losing the glass effect.
+
+Duotone is retired as the default. If a specific section wants a duotone accent later, treat it as a deliberate one-off choice, not the baseline.
 
 ## 4. Components
 
@@ -39,7 +46,7 @@ Every photo (except maybe hero) gets a single-color duotone tint using `accent-p
 - **Numbered list section:** 01 / 02 / 03 rows, each with a title, short description, tag chips, and a thumbnail — perfect for event *categories* or *departments*. *(Paxton)*
 - **Marquee ticker:** full-bleed horizontally scrolling bold statement band used as a section divider (e.g. "STUDENTS OVER SPECTATORS • CAMPUS OVER CLASSROOM •"). *(RIPE — borrowed device only, not their typeface)*
 - **Testimonial/highlight cards:** colored-block cards in a horizontal scroll row — restyle with duotone photos instead of RIPE's pastel photography. *(RIPE layout, your color/photo treatment)*
-- **Nav:** fixed vertical side tab (hamburger, search, optional theme/lang toggle) as an alternative to a conventional top navbar. *(Villa Kujoyama)*
+- **Nav:** conventional top nav bar (logo left, links center/right). Search and language switcher live as small icon buttons at the far right of the top nav, not a separate fixed side element. (Earlier drafts specified a fixed vertical side nav tab — retired: it read as a heavy solid block against the glassmorphism/full-color-photography direction and duplicated the top nav's job.)
 
 ## 5. Page flow (Paxton-inspired rhythm)
 

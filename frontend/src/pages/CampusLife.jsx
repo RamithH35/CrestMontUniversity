@@ -97,7 +97,7 @@ function getEventCategoryTag(event) {
         subtitle="Join ongoing campus events and explore our event history gallery."
       />
 
-      <section className="md:pr-[56px] py-[100px]">
+      <section className="py-[100px]">
         <div className="wrap">
           <div className="bg-[var(--card)] border border-[var(--line)] p-8 rounded-[4px] mb-12 grid gap-6 md:grid-cols-[1.4fr_1fr]">
             <div>

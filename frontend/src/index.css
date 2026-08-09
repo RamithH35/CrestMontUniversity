@@ -55,36 +55,30 @@ html {
     @apply mx-auto w-full max-w-[1240px] px-8;
   }
 
-  /* duotone photo treatment */
+  /* clean zoom hover treatment */
   .duo {
     position: relative;
     overflow: hidden;
-    background: var(--blue-deep);
   }
 
   .duo img {
-    filter: grayscale(1) contrast(1.15) brightness(1.05);
-    mix-blend-mode: luminosity;
-    transition: filter 0.5s var(--ease), transform 0.6s var(--ease);
-  }
-
-  .duo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--blue);
-    mix-blend-mode: color;
-    opacity: 0.75;
-    transition: opacity 0.5s var(--ease);
-    pointer-events: none;
+    transition: transform 0.6s var(--ease);
   }
 
   .duo.reveal-hover:hover img {
     transform: scale(1.04);
   }
 
-  .duo.reveal-hover:hover::after {
-    opacity: 0.15;
+  /* elevated glassmorphism panels */
+  .glass-card {
+    background: rgba(250, 247, 242, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 
+      0 4px 30px rgba(0, 0, 0, 0.03),
+      0 1px 3px rgba(0, 0, 0, 0.02),
+      inset 0 1.5px 0px rgba(255, 255, 255, 0.6); /* lighter top-edge highlight */
   }
 
   /* eyebrow badge */
@@ -152,29 +146,6 @@ html {
   }
 
   /* nav */
-  .side-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 56px;
-    background: var(--blue);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 0;
-    z-index: 50;
-  }
-
-  .side-nav span {
-    writing-mode: vertical-rl;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-  }
-
   .top-nav {
     position: sticky;
     top: 0;
@@ -185,7 +156,6 @@ html {
   }
 
   .top-nav .wrap {
-    padding-right: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -210,6 +180,7 @@ html {
 
   .nav-links {
     display: flex;
+    align-items: center;
     gap: 28px;
     font-size: 14px;
   }
@@ -223,6 +194,30 @@ html {
     color: var(--ink);
   }
 
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-l: 1px solid var(--line);
+    padding-left: 16px;
+    margin-left: 8px;
+  }
+
+  .nav-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    transition: color 0.2s;
+  }
+
+  .nav-action-btn:hover {
+    color: var(--ink);
+  }
+
   /* inputs & selects */
   .input {
     @apply w-full rounded-md border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--ink)] placeholder-[var(--ink-soft)] transition focus:border-[var(--blue)] focus:outline-none;
@@ -230,5 +225,38 @@ html {
 
   .select {
     @apply w-full rounded-md border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--ink)] transition focus:border-[var(--blue)] focus:outline-none;
+  }
+
+  /* testimonials infinite horizontal marquee */
+  .marquee-container {
+    overflow: hidden;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    display: flex;
+    padding: 10px 0;
+  }
+
+  .marquee-content {
+    display: flex;
+    gap: 24px;
+    animation: marquee-slide 40s linear infinite;
+    padding-left: 24px;
+  }
+
+  .marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-slide {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(calc(-50% - 12px), 0, 0);
+    }
   }
 }

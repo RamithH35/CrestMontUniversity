@@ -57,7 +57,7 @@ Description: "${description}"
 Respond ONLY with "legitimate" or "flagged".`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.0-flash",
       contents: prompt,
     });
     
@@ -65,7 +65,9 @@ Respond ONLY with "legitimate" or "flagged".`;
     const text = response.text ? response.text.trim().toLowerCase() : "";
     console.log("Raw Gemini response text:", text);
     
-    return text === "legitimate";
+    // Robust checks: clean punctuation and check for inclusion of "legitimate"
+    const cleanText = text.replace(/[^a-z]/g, "");
+    return cleanText.includes("legitimate") && !cleanText.includes("flagged");
   } catch (error) {
     console.error("Gemini API call failed. Rejecting submission (fail closed):", error);
     return false;
