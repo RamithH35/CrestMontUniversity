@@ -52,22 +52,49 @@ async function verifyEventContent(title, description) {
     const ai = new GoogleGenAI({ apiKey });
     const prompt = `You are a campus event moderator. Classify whether the following submission looks like a legitimate campus/club event or unrelated/spam/inappropriate content.
 Title: "${title}"
-Description: "${description}"
-
-Respond ONLY with "legitimate" or "flagged".`;
+Description: "${description}"`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-3.5-flash-lite",
       contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "OBJECT",
+          properties: {
+            isLegitimate: {
+              type: "BOOLEAN",
+              description: "True if the event is a legitimate campus/club event, false if it is unrelated/spam/inappropriate."
+            },
+            reason: {
+              type: "STRING",
+              description: "A brief reason for the classification."
+            }
+          },
+          required: ["isLegitimate", "reason"]
+        }
+      }
     });
     
     console.log("Raw Gemini response object:", JSON.stringify(response));
-    const text = response.text ? response.text.trim().toLowerCase() : "";
-    console.log("Raw Gemini response text:", text);
+    const responseText = response.text ? response.text.trim() : "";
+    console.log("Raw Gemini response text:", responseText);
     
-    // Robust checks: clean punctuation and check for inclusion of "legitimate"
-    const cleanText = text.replace(/[^a-z]/g, "");
-    return cleanText.includes("legitimate") && !cleanText.includes("flagged");
+    let parsed;
+    try {
+      parsed = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("Failed to parse Gemini response text as JSON:", responseText, parseError);
+      return false;
+    }
+
+    if (parsed && typeof parsed.isLegitimate === "boolean") {
+      console.log(`Event classification: ${parsed.isLegitimate}. Reason: ${parsed.reason}`);
+      return parsed.isLegitimate;
+    } else {
+      console.error("Gemini response did not match the expected schema:", parsed);
+      return false;
+    }
   } catch (error) {
     console.error("Gemini API call failed. Rejecting submission (fail closed):", error);
     return false;
@@ -307,4 +334,5 @@ router.delete("/:id", requireClubHead, async (req, res) => {
   }
 });
 
+router.verifyEventContent = verifyEventContent;
 module.exports = router;

@@ -11,15 +11,14 @@ function ClubHeadLogin() {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const loginWithCredentials = async (username, password) => {
     setMessage("");
 
     try {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -32,6 +31,16 @@ function ClubHeadLogin() {
     } catch (error) {
       setMessage("Login failed. Check that the backend server is running.");
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await loginWithCredentials(credentials.username, credentials.password);
+  };
+
+  const handleDemoLogin = async () => {
+    setCredentials({ username: "admin", password: "password123" });
+    await loginWithCredentials("admin", "password123");
   };
 
   return (
@@ -74,6 +83,15 @@ function ClubHeadLogin() {
 
           <button className="btn btn-solid mt-6 w-full justify-center">
             Login and Continue
+          </button>
+
+          <button
+            type="button"
+            onClick={handleDemoLogin}
+            className="btn btn-outline mt-3 w-full justify-center"
+            style={{ color: "var(--blue)", borderColor: "var(--blue)" }}
+          >
+            Try Demo Mode
           </button>
 
           <Link
