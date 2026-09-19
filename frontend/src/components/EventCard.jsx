@@ -1,7 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import DuoImage from './DuoImage';
-import { hoverLift, staggerItem } from '../lib/motion';
 
 /**
  * Helper to resolve high-quality Unsplash image URLs for placeholders.
@@ -18,7 +16,7 @@ function getEventImage(event) {
   } else if (titleLower.includes("showcase") || titleLower.includes("spring")) {
     return "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=500&h=600&q=80";
   }
-  
+
   return "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=500&h=600&q=80";
 }
 
@@ -52,7 +50,7 @@ function getEventDate(event) {
     return `${day} ${month} ${year}`;
   }
   if (event.date) return event.date;
-  
+
   if (event.createdAt) {
     const d = new Date(event.createdAt);
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -70,7 +68,7 @@ function getEventDate(event) {
   } else if (titleLower.includes("showcase") || titleLower.includes("spring")) {
     return "14 MAR 2026";
   }
-  
+
   return "24 OCT 2026";
 }
 
@@ -83,23 +81,19 @@ function EventCard({ event }) {
   const isRegistrationClosed = event.registrationEndDate && new Date(event.registrationEndDate) < new Date();
 
   return (
-    <motion.div
-      variants={staggerItem}
+    <div
       className="event-card flex flex-col glass-card rounded-[4px] overflow-hidden"
     >
-      <motion.div 
-        className="event-media aspect-[4/5] overflow-hidden"
-        variants={hoverLift}
-        initial="rest"
-        whileHover="hover"
+      <div
+        className="event-media aspect-[4/5] overflow-hidden group"
       >
-        <DuoImage 
-          src={imageUrl} 
-          alt={event.title} 
+        <DuoImage
+          src={imageUrl}
+          alt={event.title}
           className="w-full h-full"
-          hoverEffect={false}
+          hoverEffect={true}
         />
-      </motion.div>
+      </div>
 
       <div className="event-body p-[20px] flex-1 flex flex-col justify-between">
         <div>
@@ -159,7 +153,7 @@ function EventCard({ event }) {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

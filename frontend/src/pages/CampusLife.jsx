@@ -99,25 +99,27 @@ function getEventCategoryTag(event) {
 
       <section className="py-[100px]">
         <div className="wrap">
-          <div className="bg-[var(--card)] border border-[var(--line)] p-8 rounded-[4px] mb-12 grid gap-6 md:grid-cols-[1.4fr_1fr]">
+          <div className="glass-card p-8 sm:p-10 rounded-[6px] mb-14 grid gap-8 md:grid-cols-[1.4fr_1fr] items-center border border-[var(--line)]">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--blue)] font-mono">
-                Campus Events Desk
-              </p>
+              <span className="eyebrow mb-3">
+                <span className="dot" /> Campus Events Desk
+              </span>
               <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-[var(--ink)] sm:text-3xl">
                 Current events are open for registration
               </h2>
-              <p className="mt-3 text-[var(--ink-soft)] text-[14px] leading-relaxed">
-                Upcoming and marquee events include active registration and volunteer links. Past events are shown as a gallery to showcase how campus activities were conducted.
+              <p className="mt-3 text-[var(--ink-soft)] text-[15px] leading-relaxed">
+                Upcoming and marquee events include active registration and volunteer links. Past events are preserved in our archive gallery.
               </p>
             </div>
-            <div className="bg-[var(--bg)] border border-[var(--line)] p-6 rounded-[4px] flex flex-col justify-between">
-              <p className="text-sm text-[var(--ink-soft)] leading-relaxed">Need to revisit completed events?</p>
+            <div className="bg-white/80 border border-[var(--line)] p-6 rounded-[6px] flex flex-col justify-between shadow-xs">
+              <p className="text-sm text-[var(--ink-soft)] leading-relaxed font-sans">
+                Looking to explore the archive of completed symposiums and hackathons?
+              </p>
               <a
                 href="#past-events"
-                className="btn btn-outline mt-3 w-full justify-center"
+                className="btn btn-outline mt-4 w-full justify-center text-xs uppercase tracking-wider font-mono font-semibold"
               >
-                Check Past Events
+                Check Past Events <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[var(--cta)] text-white text-[10px] ml-1">&rarr;</span>
               </a>
             </div>
           </div>

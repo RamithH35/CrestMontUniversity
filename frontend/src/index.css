@@ -3,12 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --bg: #FAF7F2;
+  --bg: #F5F4F1;
+  --bg-dark: #172238;
   --ink: #1A1A1A;
   --ink-soft: #59564F;
-  --blue: #3558A2;
-  --blue-deep: #223a72;
-  --clay: #C8785A;
+  --text-on-dark: #F5F4F1;
+  --blue: #172238; /* accent-primary */
+  --blue-deep: #0f1726;
+  --clay: #8A6F5C; /* accent-secondary */
+  --cta: #E8703A; /* accent-cta */
   --line: #E4DFD4;
   --card: #FFFFFF;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -38,8 +41,8 @@ html {
   }
 
   h1, h2, h3, .display {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.05;
   }
@@ -71,14 +74,24 @@ html {
 
   /* elevated glassmorphism panels */
   .glass-card {
-    background: rgba(250, 247, 242, 0.65);
+    background: rgba(245, 244, 241, 0.65);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
       0 4px 30px rgba(0, 0, 0, 0.03),
       0 1px 3px rgba(0, 0, 0, 0.02),
-      inset 0 1.5px 0px rgba(255, 255, 255, 0.6); /* lighter top-edge highlight */
+      inset 0 1.5px 0px rgba(255, 255, 255, 0.6);
+  }
+
+  .glass-card-dark {
+    background: rgba(23, 34, 56, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 4px 30px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0px rgba(255, 255, 255, 0.1);
   }
 
   /* eyebrow badge */
@@ -150,7 +163,7 @@ html {
     position: sticky;
     top: 0;
     z-index: 40;
-    background: rgba(250, 247, 242, 0.85);
+    background: rgba(245, 244, 241, 0.85);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
   }
@@ -163,7 +176,7 @@ html {
   }
 
   .logo {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', serif;
     font-weight: 700;
     font-size: 18px;
   }

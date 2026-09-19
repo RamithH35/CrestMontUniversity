@@ -1,10 +1,8 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 import LoadingState from "../components/LoadingState";
 import EventCard from "../components/EventCard";
-import { fadeUp, staggerContainer } from "../lib/motion";
 
 const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
@@ -113,14 +111,9 @@ function DepartmentDetail() {
 
       <section className="py-[100px]">
         <div className="wrap">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="grid gap-12 md:grid-cols-3"
-          >
+          <div className="grid gap-12 md:grid-cols-3">
             {/* Faculty section */}
-            <motion.div variants={fadeUp} className="md:col-span-2">
+            <div className="md:col-span-2">
               <h2 className="font-display text-[clamp(22px,2.5vw,32px)] font-bold text-[var(--ink)] mb-8">
                 Faculty Profiles
               </h2>
@@ -148,10 +141,10 @@ function DepartmentDetail() {
                   <p className="text-sm text-[var(--ink-soft)]">No faculty members listed.</p>
                 )}
               </div>
-            </motion.div>
+            </div>
 
             {/* Achievements section */}
-            <motion.div variants={fadeUp}>
+            <div>
               <h2 className="font-display text-[clamp(22px,2.5vw,32px)] font-bold text-[var(--ink)] mb-8">
                 Achievements
               </h2>
@@ -168,8 +161,8 @@ function DepartmentDetail() {
                   <p className="text-sm text-[var(--ink-soft)]">No achievements recorded yet.</p>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Department Events Section */}
           <section className="mt-24">

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 import DuoImage from "../components/DuoImage";
 import LoadingState from "../components/LoadingState";
-import { staggerContainer, staggerItem } from "../lib/motion";
 
 const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
@@ -60,16 +58,10 @@ function Departments() {
 
       <section className="py-[100px]">
         <div className="wrap">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-3 gap-8 max-lg:grid-cols-2 max-md:grid-cols-1"
-          >
+          <div className="grid grid-cols-3 gap-8 max-lg:grid-cols-2 max-md:grid-cols-1">
             {departments.map((dept) => (
-              <motion.div
+              <div
                 key={dept._id}
-                variants={staggerItem}
                 className="event-card flex flex-col glass-card rounded-[4px] overflow-hidden"
               >
                 <Link to={`/departments/${dept._id}`}>
@@ -97,9 +89,9 @@ function Departments() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
           <div className="flex justify-start mt-12">
             <Link to="/" className="btn btn-outline">
               Back to Home

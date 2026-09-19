@@ -1,11 +1,9 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 import LoadingState from "../components/LoadingState";
 import EventCard from "../components/EventCard";
 import { CLUB_DATA } from "./Clubs";
-import { fadeUp, staggerContainer } from "../lib/motion";
 
 const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
@@ -69,14 +67,9 @@ function ClubDetail() {
 
       <section className="py-[100px]">
         <div className="wrap">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="grid gap-12 md:grid-cols-3"
-          >
+          <div className="grid gap-12 md:grid-cols-3">
             {/* Left side: Club metadata & Actions */}
-            <motion.div variants={fadeUp} className="md:col-span-1">
+            <div className="md:col-span-1">
               <div className="bg-[var(--card)] border border-[var(--line)] p-6 rounded-[4px] sticky top-24">
                 <span className="tag font-mono text-[10px] tracking-[0.05em] uppercase px-[10px] py-[5px] rounded-full border border-[var(--line)] text-[var(--ink-soft)] mb-4 inline-block">
                   {clubInfo.tag}
@@ -93,10 +86,10 @@ function ClubDetail() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right side: Club Events & Achievements */}
-            <motion.div variants={fadeUp} className="md:col-span-2 space-y-12">
+            <div className="md:col-span-2 space-y-12">
               {/* Achievements section */}
               {club && club.achievements && club.achievements.length > 0 && (
                 <div>
@@ -132,8 +125,8 @@ function ClubDetail() {
                   </div>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
           <div className="mt-12">
             <Link to="/clubs" className="btn btn-outline">
               Back to Clubs

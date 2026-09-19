@@ -1,6 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem } from '../lib/motion';
 
 function StatBlock() {
   const stats = [
@@ -11,24 +9,20 @@ function StatBlock() {
 
   return (
     <section className="py-[100px] transition-all duration-300">
-      <motion.div 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+      <div
         className="wrap stats grid grid-cols-3 gap-[40px] text-center max-md:grid-cols-1 max-md:gap-7"
       >
         {stats.map((stat, idx) => (
-          <motion.div key={idx} variants={staggerItem}>
+          <div key={idx}>
             <div className="stat-num font-display font-bold text-[clamp(36px,5vw,56px)] text-[var(--blue)]">
               {stat.num}
             </div>
             <div className="stat-label font-mono text-[12px] text-[var(--ink-soft)] mt-2 uppercase">
               {stat.label}
             </div>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

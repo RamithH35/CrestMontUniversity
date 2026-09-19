@@ -1,52 +1,68 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 import EyebrowBadge from './EyebrowBadge';
 import PillButton from './PillButton';
-import { fadeUp } from '../lib/motion';
-import cover1 from '../assets/cover-1.jpg'; // Import real hero background photo
+import cover1 from '../assets/cover-1.jpg';
+import { gsap } from '../lib/motion';
 
 function Hero() {
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      gsap.fromTo(
+        contentRef.current.children,
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: "power3.out", delay: 0.2 }
+      );
+    }
+  }, []);
+
   return (
-    <section id="home" className="hero relative transition-all duration-300">
-      {/* Full-bleed hero media with full-color fixed/parallax background and gradient overlay */}
-      <div className="hero-media h-[78vh] min-h-[520px] overflow-hidden relative">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `url(${cover1})`,
-            backgroundAttachment: 'fixed',
-            backgroundPosition: 'center',
-          }}
+    <section id="home" className="hero relative min-h-[85vh] flex items-center overflow-hidden">
+      {/* Full-bleed photo background with a subtle dark gradient scrim for text contrast */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-1000"
+          style={{ backgroundImage: `url(${cover1})` }}
         />
-        {/* Soft gradient overlay transitioning to page background */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(180deg, rgba(0,0,0,0) 50%, var(--bg) 100%)',
+            background: 'linear-gradient(180deg, rgba(15, 23, 38, 0.45) 0%, rgba(15, 23, 38, 0.65) 100%)',
           }}
         />
       </div>
 
-      {/* Floating glassmorphism headline card with fade-up scroll reveal */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-        className="hero-card absolute top-[14%] left-8 max-w-[520px] glass-card p-11 rounded-[4px] shadow-[0_24px_60px_rgba(0,0,0,0.08)] max-md:static max-md:m-6 max-md:p-7"
-      >
-        <EyebrowBadge text="Innovating Tomorrow" />
-        <h1 className="text-[clamp(34px,4.4vw,52px)] mt-[14px] mb-3 leading-[1.05] tracking-[-0.02em] font-display font-bold text-[var(--ink)]">
-          Crestmont<br />University
-        </h1>
-        <p className="text-[var(--ink-soft)] mb-7 text-[15px] leading-relaxed">
-          Where research, making, and community meet. Every lab, launch, and late-night build starts here.
-        </p>
-        <div className="hero-actions flex gap-3 flex-wrap">
-          <PillButton variant="solid" href="#events">Explore Events</PillButton>
-          <PillButton variant="outline" href="#departments">College Layout</PillButton>
+      {/* Bold, centered direct headline overlay — no card/box */}
+      <div className="wrap relative z-10 w-full py-24 text-center flex flex-col items-center">
+        <div ref={contentRef} className="max-w-[780px] flex flex-col items-center">
+          <div className="mb-4">
+            <EyebrowBadge text="Innovating Tomorrow" className="bg-white/10 text-white border-white/20 backdrop-blur-md" />
+          </div>
+          <h1 className="text-[clamp(40px,6vw,72px)] mb-6 leading-[1.02] tracking-[-0.03em] font-display font-bold text-white drop-shadow-sm">
+            Crestmont University
+          </h1>
+          <p className="text-white/90 mb-10 text-[17px] sm:text-[19px] leading-relaxed max-w-[620px] font-sans">
+            Where research, making, and community meet. Every lab, launch, and late-night build starts here.
+          </p>
+          <div className="hero-actions flex gap-4 flex-wrap justify-center">
+            <PillButton
+              variant="solid"
+              href="#events"
+              className="bg-white text-[var(--bg-dark)] hover:bg-[var(--cta)] hover:text-white border-white transition-all shadow-lg"
+            >
+              Explore Events
+            </PillButton>
+            <PillButton
+              variant="outline"
+              href="#departments"
+              className="border-white/40 text-white hover:bg-white hover:text-[var(--bg-dark)] transition-all backdrop-blur-sm"
+            >
+              College Layout
+            </PillButton>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

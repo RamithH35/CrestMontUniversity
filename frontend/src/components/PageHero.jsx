@@ -1,50 +1,62 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cover1 from '../assets/cover-1.jpg';
+import { gsap } from '../lib/motion';
 
 function PageHero({ title, subtitle, eyebrow = "Crestmont University", backgroundImage = cover1, showBackButton = true }) {
   const navigate = useNavigate();
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      gsap.fromTo(
+        contentRef.current.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.1 }
+      );
+    }
+  }, [title]);
 
   return (
-    <section className="relative overflow-hidden border-b border-[var(--line)] min-h-[35vh] flex items-center py-12">
-      {/* Full-color background photo banner with gradient overlay */}
+    <section className="relative overflow-hidden min-h-[50vh] flex items-center py-20">
+      {/* Full-color background photo banner with dark gradient scrim */}
       <div className="absolute inset-0 z-0">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
-        {/* Soft bottom gradient overlay transitioning to page background */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 60%, var(--bg) 100%)',
+            background: 'linear-gradient(180deg, rgba(15, 23, 38, 0.5) 0%, rgba(15, 23, 38, 0.75) 100%)',
           }}
         />
       </div>
 
-      {/* Floating glassmorphism card containing titles */}
+      {/* Bold direct text overlay matching new hero spec */}
       <div className="wrap relative z-10 w-full">
-        <div className="glass-card p-8 rounded-[4px] max-w-[720px] shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
+        <div ref={contentRef} className="max-w-[780px]">
           {showBackButton && (
-            <button 
+            <button
               onClick={() => navigate(-1)}
-              className="flex items-center gap-2 text-[11px] font-mono text-[var(--ink)] opacity-75 hover:opacity-100 mb-4 transition-all group cursor-pointer"
+              className="flex items-center gap-2 text-[11px] font-mono text-white/80 hover:text-white mb-6 transition-all group cursor-pointer"
             >
               <span className="transform transition-transform group-hover:-translate-x-1 font-sans text-xs">&larr;</span> BACK
             </button>
           )}
-          
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--ink)] opacity-85 font-mono mb-2">
+
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/80 font-mono mb-3">
             {eyebrow}
           </p>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-[var(--ink)] sm:text-4xl lg:text-5xl relative pb-4">
+          <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl relative pb-4 leading-[1.05]">
             {title}
-            {/* Accent underline highlight */}
-            <span className="absolute bottom-0 left-0 w-12 h-[3px] bg-[var(--blue)]" />
+            <span className="absolute bottom-0 left-0 w-16 h-[3px] bg-[var(--cta)]" />
           </h1>
-          <p className="mt-4 max-w-2xl text-xs sm:text-sm leading-relaxed text-[var(--ink-soft)]">
-            {subtitle}
-          </p>
+          {subtitle && (
+            <p className="mt-6 max-w-2xl text-sm sm:text-base leading-relaxed text-white/90 font-sans">
+              {subtitle}
+            </p>
+          )}
         </div>
       </div>
     </section>
