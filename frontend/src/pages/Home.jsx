@@ -12,6 +12,7 @@ import StatBlock from '../components/StatBlock';
 import EyebrowBadge from '../components/EyebrowBadge';
 import DuoImage from '../components/DuoImage';
 import { usePinnedSection } from '../hooks/usePinnedSection';
+import { SplitText, gsap } from '../lib/motion';
 
 const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
@@ -89,6 +90,9 @@ function Home() {
   const clubsHeadingRef = useRef(null);
   const clubsClusterRef = useRef(null);
 
+  const voicesSectionRef = useRef(null);
+  const voicesHeadingRef = useRef(null);
+
   // Load events and departments from backend
   useEffect(() => {
     const fetchEvents = async () => {
@@ -157,6 +161,38 @@ function Home() {
   usePinnedSection(eventsSectionRef, eventsHeadingRef, eventsClusterRef, [filteredEvents]);
   usePinnedSection(clubsSectionRef, clubsHeadingRef, clubsClusterRef, []);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (voicesHeadingRef.current) {
+        const splitWords = voicesHeadingRef.current.querySelectorAll('.split-word');
+        const badge = voicesHeadingRef.current.querySelector('.voices-badge');
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: voicesSectionRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        if (badge) {
+          tl.fromTo(badge, { opacity: 0, y: -15 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+        }
+
+        if (splitWords && splitWords.length > 0) {
+          tl.fromTo(
+            splitWords,
+            { yPercent: 110, opacity: 0, rotateZ: 1.5 },
+            { yPercent: 0, opacity: 1, rotateZ: 0, duration: 0.85, stagger: 0.05, ease: "power4.out" },
+            0.1
+          );
+        }
+      }
+    }, voicesSectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* 1. Hero Section */}
@@ -178,18 +214,20 @@ function Home() {
             ref={deptHeadingRef}
             className="lg:col-span-5 z-10 lg:sticky lg:top-32 self-start pt-2"
           >
-            <div className="absolute -top-6 -left-4 font-display font-bold text-[130px] text-[var(--ink)] opacity-[0.035] select-none pointer-events-none leading-none">
+            <div className="watermark-num absolute -top-6 -left-4 font-display font-bold text-[130px] text-[var(--ink)] opacity-[0.035] select-none pointer-events-none leading-none">
               01
             </div>
 
-            <EyebrowBadge text="Academic Units" />
+            <div className="heading-anim">
+              <EyebrowBadge text="Academic Units" />
+            </div>
             <h2 className="text-[clamp(32px,3.8vw,48px)] mt-[18px] leading-[1.05] tracking-[-0.02em] font-display font-bold text-[var(--ink)]">
-              Original Thinking
+              <SplitText text="Original Thinking" />
             </h2>
-            <p className="text-[var(--ink-soft)] mt-[16px] text-[15px] leading-relaxed max-w-[420px]">
+            <p className="heading-anim text-[var(--ink-soft)] mt-[16px] text-[15px] leading-relaxed max-w-[420px]">
               Crestmont's academic units structure our labs, workshops, and core student-led collaborations. Scroll to explore our key departments.
             </p>
-            <div className="mt-8">
+            <div className="heading-anim mt-8">
               <Link to="/departments" className="btn btn-solid">
                 Explore All Departments <ArrowRight size={16} />
               </Link>
@@ -328,18 +366,20 @@ function Home() {
             ref={eventsHeadingRef}
             className="lg:col-span-5 z-10 lg:sticky lg:top-32 self-start pt-2"
           >
-            <div className="absolute -top-6 -left-4 font-display font-bold text-[130px] text-[var(--ink)] opacity-[0.035] select-none pointer-events-none leading-none">
+            <div className="watermark-num absolute -top-6 -left-4 font-display font-bold text-[130px] text-[var(--ink)] opacity-[0.035] select-none pointer-events-none leading-none">
               02
             </div>
 
-            <EyebrowBadge text="Campus Agenda" />
+            <div className="heading-anim">
+              <EyebrowBadge text="Campus Agenda" />
+            </div>
             <h2 className="text-[clamp(32px,3.8vw,48px)] mt-[18px] leading-[1.05] tracking-[-0.02em] font-display font-bold text-[var(--ink)]">
-              What's on at Crestmont
+              <SplitText text="What's on at Crestmont" />
             </h2>
-            <p className="text-[var(--ink-soft)] mt-[16px] text-[15px] leading-relaxed max-w-[420px]">
+            <p className="heading-anim text-[var(--ink-soft)] mt-[16px] text-[15px] leading-relaxed max-w-[420px]">
               From 48-hour hackathons and founder AMAs to project showcases. Filter by category to register or volunteer.
             </p>
-            <div className="flex gap-4 mt-8 flex-wrap">
+            <div className="heading-anim flex gap-4 mt-8 flex-wrap">
               <Link to="/campus-life" className="btn btn-solid">
                 Explore More Events
               </Link>
@@ -480,18 +520,20 @@ function Home() {
             ref={clubsHeadingRef}
             className="lg:col-span-5 z-10 lg:sticky lg:top-32 self-start pt-2"
           >
-            <div className="absolute -top-6 -left-4 font-display font-bold text-[130px] text-[var(--ink)] opacity-[0.035] select-none pointer-events-none leading-none">
+            <div className="watermark-num absolute -top-6 -left-4 font-display font-bold text-[130px] text-[var(--ink)] opacity-[0.035] select-none pointer-events-none leading-none">
               03
             </div>
 
-            <EyebrowBadge text="Student Guilds" />
+            <div className="heading-anim">
+              <EyebrowBadge text="Student Guilds" />
+            </div>
             <h2 className="text-[clamp(32px,3.8vw,48px)] mt-[18px] leading-[1.05] tracking-[-0.02em] font-display font-bold text-[var(--ink)]">
-              Student-led Communities
+              <SplitText text="Student-led Communities" />
             </h2>
-            <p className="text-[var(--ink-soft)] mt-[16px] text-[15px] leading-relaxed max-w-[420px]">
+            <p className="heading-anim text-[var(--ink-soft)] mt-[16px] text-[15px] leading-relaxed max-w-[420px]">
               Explore our diverse set of active student groups running coding challenges, aerospace building, and incubation cells.
             </p>
-            <div className="mt-8">
+            <div className="heading-anim mt-8">
               <Link to="/clubs" className="btn btn-solid">
                 Explore More Clubs <ArrowRight size={16} />
               </Link>
@@ -579,12 +621,14 @@ function Home() {
       </section>
 
       {/* 6. Testimonials Section (Voices) */}
-      <section id="voices" className="py-[120px] transition-all duration-300">
+      <section id="voices" ref={voicesSectionRef} className="py-[120px] transition-all duration-300">
         <div className="wrap">
-          <div className="section-head max-w-[640px] mb-14">
-            <EyebrowBadge text="Voices" />
+          <div ref={voicesHeadingRef} className="section-head max-w-[640px] mb-14">
+            <div className="voices-badge inline-block">
+              <EyebrowBadge text="Voices" />
+            </div>
             <h2 className="text-[clamp(28px,3.2vw,42px)] mt-[18px] leading-[1.05] tracking-[-0.02em] font-display font-bold text-[var(--ink)]">
-              What students say
+              <SplitText text="What students say" />
             </h2>
           </div>
 
